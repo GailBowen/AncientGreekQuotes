@@ -1,8 +1,9 @@
-FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS base
+# Use the Windows Server Core base image
+FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8 AS build
 WORKDIR /src
 COPY ["SampleWeb/SampleWeb.csproj", "SampleWeb/"]
 RUN dotnet restore "SampleWeb/SampleWeb.csproj"
@@ -16,4 +17,4 @@ RUN dotnet publish "SampleWeb.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "SampleWeb.dll"]
+ENTRYPOINT ["SampleWeb.exe"]  # Update the entry point for Windows
