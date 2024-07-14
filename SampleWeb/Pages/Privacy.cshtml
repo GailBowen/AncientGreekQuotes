@@ -5,4 +5,10 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+
+<form method="post">
+
+    <label asp-for="InputValue">Enter Value:</label>
+    <input asp-for="InputValue" />
+    <button type="submit" asp-page-handler="MyButtonClicked">Click Me!</button>
+</form>
