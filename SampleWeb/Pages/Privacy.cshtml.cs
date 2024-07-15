@@ -27,7 +27,8 @@ namespace SampleWeb.Pages {
             // Your code here
             _logger.LogInformation("Button was clicked!");
 
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            //var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = "172.20.240.1" };
             var connection = factory.CreateConnection();
             var channel = connection.CreateModel();
 
