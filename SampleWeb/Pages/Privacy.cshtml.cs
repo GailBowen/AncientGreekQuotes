@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System.Text;
 using RabbitMQ.Client;
+using System.Text;
+using System;
 
-namespace SampleWeb.Pages {
+
+namespace SampleWeb.Pages
+{
     public class PrivacyModel : PageModel {
         private readonly ILogger<PrivacyModel> _logger;
 
@@ -28,7 +27,16 @@ namespace SampleWeb.Pages {
             _logger.LogInformation("Button was clicked!");
 
             //var factory = new ConnectionFactory() { HostName = "localhost" };
-            var factory = new ConnectionFactory() { HostName = "172.20.240.1" };
+
+            var hostIp = Environment.GetEnvironmentVariable("SUPERHOST_IP");
+
+            if (String.IsNullOrEmpty(hostIp))
+            {
+                hostIp = "localhost";
+            }
+
+            var factory = new ConnectionFactory() { HostName = hostIp };
+
             var connection = factory.CreateConnection();
             var channel = connection.CreateModel();
 
